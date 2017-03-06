@@ -1,1 +1,5 @@
 # NT7502-LCD
+
+NT7502-LCD‚ÌArduino/ESP8266ƒ‰ƒCƒuƒ‰ƒŠ
+
+Ú×‚Í‚±‚¿‚ç‚ÅÐ‰î‚µ‚Ä‚¢‚Ü‚·B
