@@ -422,7 +422,7 @@ Serial.println("hardware SPI");
   st7565_init();
   st7565_command(CMD_DISPLAY_ON);
   st7565_command(CMD_SET_ALLPTS_NORMAL);
-  st7565_set_brightness(contrast);
+  set_brightness(contrast);
 }
 
 void ST7565::st7565_init(void) {
@@ -507,7 +507,7 @@ void ST7565::st7565_data(uint8_t c) {
   digitalWrite(a0, HIGH);
   spiwrite(c);
 }
-void ST7565::st7565_set_brightness(uint8_t val) {
+void ST7565::set_brightness(uint8_t val) {
   st7565_command(CMD_SET_VOLUME_FIRST);
   st7565_command(CMD_SET_VOLUME_SECOND | (val & 0x3f));
 }

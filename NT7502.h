@@ -88,7 +88,7 @@ class ST7565 {
   void begin(uint8_t contrast);
   void st7565_command(uint8_t c);
   void st7565_data(uint8_t c);
-  void st7565_set_brightness(uint8_t val);
+  void set_brightness(uint8_t val);
   void clear_display(void);
   void clear();
   void display();

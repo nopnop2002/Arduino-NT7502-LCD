@@ -129,9 +129,9 @@ void setup()   {
   glcd.clear();
 
   for (int cont=0;cont<13;cont++) {
-    glcd.st7565_set_brightness(cont);
+    glcd.set_brightness(cont);
   }
-  glcd.st7565_set_brightness(12);
+  glcd.set_brightness(12);
 
   int x = 0;
   for(int i=0;i<sizeof(str)/sizeof(str[0]);i++){

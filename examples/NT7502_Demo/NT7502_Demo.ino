@@ -50,7 +50,7 @@ void setup()   {
   glcd.clear();
 
   for (int cont=0;cont<13;cont++) {
-    glcd.st7565_set_brightness(cont);
+    glcd.set_brightness(cont);
     glcd.clear();
     int cont1 = cont/10;
     int cont2 = cont % 10;
@@ -66,7 +66,7 @@ void setup()   {
     delay(2000);
   }
 
-  glcd.st7565_set_brightness(5);
+  glcd.set_brightness(5);
   glcd.clear();
 
   // draw many lines
