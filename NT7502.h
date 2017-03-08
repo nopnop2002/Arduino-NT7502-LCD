@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  #include "WProgram.h"
 #endif
 
-#define swap(a, b) { uint8_t t = a; a = b; b = t; }
-
 #define BLACK 1
 #define WHITE 0
 
@@ -121,7 +119,6 @@ class ST7565 {
  private:
   int8_t sid, sclk, a0, rst, cs;
   void spiwrite(uint8_t c);
-  void my_setpixel(uint8_t x, uint8_t y, uint8_t color);
-
-  //uint8_t buffer[128*64/8]; 
+  void expandfont(uint8_t ch, uint8_t bai, uint8_t *exfont);
+  unsigned char rotateByte(uint8_t ch1);
 };

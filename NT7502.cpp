@@ -25,30 +25,22 @@ update by nopnop2002; it is in the public domain.
 */
 
 
+#include <SPI.h>
+#include "NT7502.h"
 #ifdef __AVR__
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 #endif
 
-#ifndef _delay_ms
-  #define _delay_ms(t) delay(t)
-#endif
-
-#ifndef _BV
-  #define _BV(bit) (1<<(bit))
-#endif
-
-#include "NT7502.h"
-//#include "ST7565.h"
+#define _delay_ms(t) delay(t)
+#define _BV(bit) (1<<(bit))
+#define swap(a, b) { uint8_t t = a; a = b; b = t; }
 
 #define _SHIFTOUT_
 //#define _BITBANGING_
 //#define _HARDSPI_
 //#define _DEBUG_
 
-#if defined (_HARDSPI_)
-#include <SPI.h>
-#endif
 
 // a handy reference to where the pages are on the screen
 //const uint8_t pagemap[] = { 3, 2, 1, 0, 7, 6, 5, 4 };
@@ -86,7 +78,7 @@ uint8_t st7565_buffer[8][132] = { 0 };
 
 
 // expand font bit
-static void expandfont(uint8_t ch, uint8_t bai, uint8_t *exfont) {
+inline void ST7565::expandfont(uint8_t ch, uint8_t bai, uint8_t *exfont) {
   uint8_t mask = 0x80;
   uint8_t pos = 0;
   uint8_t shift = 0;
@@ -114,7 +106,7 @@ static void expandfont(uint8_t ch, uint8_t bai, uint8_t *exfont) {
   }
 }
 
-static unsigned char rotateByte(uint8_t ch1) {
+inline unsigned char ST7565::rotateByte(uint8_t ch1) {
   uint8_t ch2;
   for (int j=0;j<8;j++) {
     ch2 = (ch2 << 1) + (ch1 & 0x01);
