@@ -107,6 +107,8 @@ class ST7565 {
 		uint8_t color);
 // Add by nopnop2002
   void drawUTF(uint8_t x, uint8_t line, uint8_t *font, uint8_t w, uint8_t h);
+  void linedown(void);
+  void lineup(void);
 // Update nopnop2002
   void drawchar(uint8_t x, uint8_t line, uint8_t bai, char c);
   void drawstring(uint8_t x, uint8_t line, char *c);

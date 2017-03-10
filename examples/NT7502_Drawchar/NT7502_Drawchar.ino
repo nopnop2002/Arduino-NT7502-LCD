@@ -65,6 +65,47 @@ void setup()   {
     glcd.drawchar((i-65)*18, 3, 3, i);
   }
   glcd.display();
+  delay(4000);
+
+  glcd.clear_display();
+  delay(4000);
+  glcd.display();
+  delay(4000);
+
+  char str[30];
+  uint16_t line = 0;
+  glcd.clear();
+  for(int i=0;i<7;i++) {
+    sprintf(str,"Line %d",line++);
+    glcd.drawstring(0, 6-i, str);
+    glcd.display();
+    delay(1000);
+  }
+
+  for(int i=0;i<14;i++) {
+    glcd.linedown();
+    sprintf(str,"Line %d",line++);
+    glcd.drawstring(0, 0, str);
+    glcd.display();
+    delay(1000);
+  }  
+
+  glcd.clear();
+  line = 0;
+  for(int i=0;i<7;i++) {
+    sprintf(str,"Line %d",line++);
+    glcd.drawstring(0, i, str);
+    glcd.display();
+    delay(1000);
+  }
+
+  while(1) {
+    glcd.lineup();
+    sprintf(str,"Line %d",line++);
+    glcd.drawstring(0, 6, str);
+    glcd.display();
+    delay(1000);
+  }  
 
 }
 

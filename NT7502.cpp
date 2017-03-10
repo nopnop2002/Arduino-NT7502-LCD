@@ -237,6 +237,20 @@ Serial.println();
   }
 }
 
+void  ST7565::linedown(void) {
+  for(int page=6;page>0;page--) {
+	memcpy(&st7565_buffer[page+1], &st7565_buffer[page], VRAMCOL);
+  }
+  memset(&st7565_buffer[0], 0, VRAMCOL);
+}
+
+void  ST7565::lineup(void) {
+  for(int page=2;page<8;page++) {
+	memcpy(&st7565_buffer[page-1], &st7565_buffer[page], VRAMCOL);
+  }
+  memset(&st7565_buffer[7], 0, VRAMCOL);
+}
+
 // bresenham's algorithm - thx wikpedia
 void ST7565::drawline(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color) {
 
@@ -513,9 +527,9 @@ void ST7565::set_brightness(uint8_t val) {
 }
 
 void ST7565::display(void) {
-  for(int i = 0; i < 7; i++) {
-    uint8_t _p = pagemap[i];
-    st7565_command(CMD_SET_PAGE | _p);
+  for(uint8_t page = 1; page < 8; page++) {
+
+    st7565_command(CMD_SET_PAGE | page);
 
 //    st7565_command(CMD_SET_COLUMN_LOWER | ((ST7565_STARTBYTES) & 0xf));
 //    st7565_command(CMD_SET_COLUMN_UPPER | (((ST7565_STARTBYTES) >> 4) & 0x0F));
@@ -524,7 +538,7 @@ void ST7565::display(void) {
     st7565_command(CMD_RMW);
     
     for(int col=0; col< VRAMCOL; col++) {
-      st7565_data(st7565_buffer[_p][col]);
+      st7565_data(st7565_buffer[page][col]);
     }
   }
 }
@@ -536,10 +550,9 @@ void ST7565::clear(void) {
 
 // this doesnt touch the buffer, just clears the display RAM - might be handy
 void ST7565::clear_display(void) {
-  
-//  memset(st7565_buffer, 0, sizeof(st7565_buffer));
-  for(int i = 0; i < 7; i++) {
-    st7565_command(CMD_SET_PAGE | pagemap[i]);
+
+  for(uint8_t page = 1; page < 8; page++) {
+    st7565_command(CMD_SET_PAGE | page);
 
 //    st7565_command(CMD_SET_COLUMN_LOWER | ((ST7565_STARTBYTES) & 0xf));
 //    st7565_command(CMD_SET_COLUMN_UPPER | (((ST7565_STARTBYTES) >> 4) & 0x0F));
