@@ -67,10 +67,12 @@ void setup()   {
   glcd.display();
   delay(4000);
 
-  glcd.clear_display();
-  delay(4000);
-  glcd.display();
-  delay(4000);
+  for(int i=0;i<5;i++) {
+    glcd.clear_display();
+    delay(500);
+    glcd.display();
+    delay(500);
+  }
 
   char str[30];
   uint16_t line = 0;
