@@ -44,7 +44,7 @@ update by nopnop2002; it is in the public domain.
 
 // a handy reference to where the pages are on the screen
 //const uint8_t pagemap[] = { 3, 2, 1, 0, 7, 6, 5, 4 };
-const uint8_t pagemap[] = { 7, 6, 5, 4, 3, 2, 1 };
+//const uint8_t pagemap[] = { 7, 6, 5, 4, 3, 2, 1 };
 
 // a 5x7 font table
 const extern uint8_t PROGMEM font[];
