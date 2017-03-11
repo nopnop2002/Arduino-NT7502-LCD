@@ -69,8 +69,8 @@ void getFontUTF(RomFontx fontx, uint16_t utf, struct UTFINFO* hoge) {
   const uint8_t *p;
   uint8_t w,h;
 
-//  Serial.print("utf:");
-//  Serial.println(utf,HEX);
+  Serial.print("utf:");
+  Serial.println(utf,HEX);
   hoge->utf = utf;
   if(!fontx.getGlyph(utf, &p, &w, &h)){
     Serial.printf("getGlyph failed. code:%x\n",utf);
@@ -88,16 +88,15 @@ void getFontUTF(RomFontx fontx, uint16_t utf, struct UTFINFO* hoge) {
 
     int mask = 7;
     for(int y=0; y<h; y++){
-//      Serial.printf("%02d: ",y);
+      Serial.printf("%02d: ",y);
       for(int x=0; x<w; x++){
         uint8_t d = pgm_read_byte(&p[x/8]);
-//        Serial.print(d & (0x80 >> (x % 8)) ? '*' : '.');
+        Serial.print(d & (0x80 >> (x % 8)) ? '*' : '.');
         uint8_t pos = (y/8)*32+x;
         if (d & (0x80 >> (x % 8))) hoge->font[pos] = hoge->font[pos] + (1 << mask); 
       }
-//      Serial.println();
-//      delay(10);
-//      dumpFontUTF(&utfinfo);
+      Serial.println();
+      delay(10);
       mask--;
       if (mask < 0) mask = 7;
       p += (w + 7)/8;
@@ -108,7 +107,8 @@ void getFontUTF(RomFontx fontx, uint16_t utf, struct UTFINFO* hoge) {
 
 // The setup() method runs once, when the sketch starts
 void setup()   {                
-  uint16_t str[] = { u'漢', u'字', u'T', u'E', u'S', u'T'};
+  uint16_t str1[] = { u'漢', u'字', u'T', u'E', u'S', u'T'};
+  uint16_t str2[] = { u'か', u'な', u'カ', u'ナ', u'ｶ', u'ﾅ'};
 
   Serial.begin(9600);
 
@@ -116,22 +116,35 @@ void setup()   {
   pinMode(BACKLIGHT_LED, OUTPUT);
   digitalWrite(BACKLIGHT_LED, HIGH);
   glcd.begin(0);
-  glcd.clear();
 
   for (int cont=0;cont<13;cont++) {
     glcd.set_brightness(cont);
   }
   glcd.set_brightness(12);
 
-  int x = 0;
-  for(int i=0;i<sizeof(str)/sizeof(str[0]);i++){
-    getFontUTF(fx, str[i], &utfinfo);
+  int x;
+  x = 0;
+  glcd.clear();
+  for(int i=0;i<sizeof(str1)/sizeof(str1[0]);i++){
+    getFontUTF(fx, str1[i], &utfinfo);
 //    dumpFontUTF(&utfinfo);
     glcd.drawUTF(x, 0, utfinfo.font, utfinfo.wbit, utfinfo.hbit);
     x = x + utfinfo.wbit;
   }
   glcd.display();
+//  delay(2000);
+//  glcd.clear();
+
+  x = 0;
+  for(int i=0;i<sizeof(str2)/sizeof(str2[0]);i++){
+    getFontUTF(fx, str2[i], &utfinfo);
+//    dumpFontUTF(&utfinfo);
+    glcd.drawUTF(x, 2, utfinfo.font, utfinfo.wbit, utfinfo.hbit);
+    x = x + utfinfo.wbit;
+  }
+  glcd.display();
   delay(2000);
+
 }
 
 void loop()                     
