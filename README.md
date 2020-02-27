@@ -1,4 +1,4 @@
-# NT7502-LCD
+# Arduino-NT7502-LCD
 
 NT7502-LCD Library for Arduino/ESP8266
 
